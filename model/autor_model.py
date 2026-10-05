@@ -1,7 +1,7 @@
 import os
 from dataclasses import dataclass
 
-import psycopg
+import psycopg2
 
 
 @dataclass
@@ -16,7 +16,7 @@ class AutorModel:
         self.dsn = dsn or os.getenv("DATABASE_URL", "dbname=bd_biblioteca")
 
     def cadastrar(self, nome: str, nacionalidade: str) -> Autor:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
@@ -32,7 +32,7 @@ class AutorModel:
         return Autor(registro[0], nome, nacionalidade)
 
     def listar(self) -> list[Autor]:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
@@ -47,7 +47,7 @@ class AutorModel:
     def atualizar(
         self, id_autor: int, nome: str, nacionalidade: str
     ) -> bool:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
@@ -60,7 +60,7 @@ class AutorModel:
                 return cursor.rowcount > 0
 
     def excluir(self, id_autor: int) -> bool:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     "DELETE FROM autor WHERE id_autor = %s",

@@ -1,7 +1,7 @@
 import os
 from dataclasses import dataclass
 
-import psycopg
+import psycopg2
 
 
 @dataclass
@@ -19,7 +19,7 @@ class LivroModel:
     def cadastrar(
         self, titulo: str, ano_publicacao: int, id_autor: int | None
     ) -> Livro:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
@@ -35,7 +35,7 @@ class LivroModel:
         return Livro(registro[0], titulo, ano_publicacao, id_autor)
 
     def listar(self) -> list[Livro]:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
@@ -54,7 +54,7 @@ class LivroModel:
         ano_publicacao: int,
         id_autor: int | None,
     ) -> bool:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
@@ -67,7 +67,7 @@ class LivroModel:
                 return cursor.rowcount > 0
 
     def excluir(self, id_livro: int) -> bool:
-        with psycopg.connect(self.dsn) as conexao:
+        with psycopg2.connect(self.dsn) as conexao:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     "DELETE FROM livro WHERE id_livro = %s",
