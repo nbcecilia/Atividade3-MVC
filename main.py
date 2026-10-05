@@ -3,10 +3,17 @@
 
 
 
-"""Este arquivo é só um exemplo, precisa modificar, nem é modificar é instacia os arquivos controller"""
+""""""
 
 
-from controller.biblioteca_Controller import biblioteca_Controller
+from controller.autor_controller import AutorController
+from controller.livro_controller import LivroController
+from view.biblioteca_view import bibliotecaView
+
+
 if __name__ == "__main__":
-    app = biblioteca_Controller() 
-    app.executar()
+    autor_controller = AutorController()
+    livro_controller = LivroController()
+
+    menu = bibliotecaView(autor_controller, livro_controller)
+    menu.executar()
