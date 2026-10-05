@@ -3,7 +3,7 @@
 
 
 
-"""Este arquivo é só um exemplo, precisa modificar"""
+"""Este arquivo é só um exemplo, precisa modificar, nem é modificar é instacia os arquivos controller"""
 
 
 from controller.biblioteca_Controller import ProdutoController
