@@ -1,4 +1,4 @@
 # Atividade3-MVC
 
-Alunos: Bruno Miranda 
+Alunos: Bruno Miranda e
         Cecília Nunes
