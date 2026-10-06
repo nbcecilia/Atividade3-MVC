@@ -10,11 +10,15 @@ class Livro:
     titulo: str
     ano_publicacao: int
     id_autor: int | None
+    nome_autor: str | None = None
 
 
 class LivroModel:
     def __init__(self, dsn: str | None = None) -> None:
-        self.dsn = dsn or os.getenv("DATABASE_URL", "dbname=bd_biblioteca")
+            self.dsn = dsn or os.getenv(
+                    "DATABASE_URL", 
+                    "dbname=bd_biblioteca user=postgres password=9090b host=localhost port=5432"
+            )
 
     def cadastrar(
         self, titulo: str, ano_publicacao: int, id_autor: int | None
@@ -39,9 +43,10 @@ class LivroModel:
             with conexao.cursor() as cursor:
                 cursor.execute(
                     """
-                    SELECT id_livro, titulo, ano_publicacao, id_autor
+                    SELECT livro.id_livro, livro.titulo, livro.ano_publicacao, livro.id_autor, autor.nome as nome_autor
                     FROM livro
-                    ORDER BY id_livro
+                    LEFT JOIN autor  ON livro.id_autor  = autor.id_autor
+                    ORDER BY livro.id_livro
                     """
                 )
                 registros = cursor.fetchall()

@@ -13,7 +13,10 @@ class Autor:
 
 class AutorModel:
     def __init__(self, dsn: str | None = None) -> None:
-        self.dsn = dsn or os.getenv("DATABASE_URL", "dbname=bd_biblioteca")
+        self.dsn = dsn or os.getenv(
+            "DATABASE_URL", 
+            "dbname=bd_biblioteca user=postgres password=9090b host=localhost port=5432"
+        )
 
     def cadastrar(self, nome: str, nacionalidade: str) -> Autor:
         with psycopg2.connect(self.dsn) as conexao:
