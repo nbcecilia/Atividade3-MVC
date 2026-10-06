@@ -1,11 +1,3 @@
-  
-""" professor falou q vai avaliar pelo video e precisa que o video esteja completo fazendo todos os testes, inclusive com as exceçoes"""
-
-
-
-""""""
-
-
 from controller.autor_controller import AutorController
 from controller.livro_controller import LivroController
 from view.biblioteca_view import BibliotecaView
